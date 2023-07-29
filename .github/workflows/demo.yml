@@ -1,4 +1,5 @@
 on: push
+name: CI Build
 
 env:
   BuildConfiguration: "Release"
@@ -7,20 +8,25 @@ env:
   Parameters.TestProjects: "**/*[Tt]ests/*.csproj"
 
 jobs:
-  Build:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Collect Workflow Telemetry
         uses: runforesight/workflow-telemetry-action@v1
       
-      - uses: actions/checkout@v3
+      - name: Clone repo
+        uses: actions/checkout@v3
       
-      - uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: 10.16.3
 
-      - run: npm install TailwindTraders.Website/Source/Tailwind.Traders.Web/ClientApp          
+      - name: npm install
+        run: npm install TailwindTraders.Website/Source/Tailwind.Traders.Web/ClientApp          
          
-      - run: dotnet restore TailwindTraders.Website/Source/Tailwind.Traders.Web.sln
+      - name: dotnet restore
+        run: dotnet restore TailwindTraders.Website/Source/Tailwind.Traders.Web.sln
 
-      - run: dotnet build TailwindTraders.Website/Source/Tailwind.Traders.Web.sln
+      - name: dotnet build
+        run: dotnet build TailwindTraders.Website/Source/Tailwind.Traders.Web.sln
