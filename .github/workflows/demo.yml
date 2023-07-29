@@ -19,14 +19,8 @@ jobs:
         with:
           node-version: 10.16.3
 
-      - run: |
-          ls
-          cd TailwindTraders.Website/Source/Tailwind.Traders.Web/ClientApp
-          npm install
+      - run: npm install TailwindTraders.Website/Source/Tailwind.Traders.Web/ClientApp          
          
       - run: dotnet restore TailwindTraders.Website/Source/Tailwind.Traders.Web.sln
-        #projects: '$(Parameters.RestoreBuildProjects)'
 
       - run: dotnet build TailwindTraders.Website/Source/Tailwind.Traders.Web.sln
-        #  projects: '$(Parameters.RestoreBuildProjects)'
-        #  arguments: '--configuration $(BuildConfiguration)'
