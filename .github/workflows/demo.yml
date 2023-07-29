@@ -10,6 +10,9 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
+      - name: Collect Workflow Telemetry
+        uses: runforesight/workflow-telemetry-action@v1
+      
       - uses: actions/checkout@v3
       
       - uses: actions/setup-node@v3
