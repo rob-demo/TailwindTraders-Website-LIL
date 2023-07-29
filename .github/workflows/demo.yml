@@ -1,0 +1,27 @@
+on: push
+
+env:
+  BuildConfiguration: "Release"
+  BuildPlatform: "any cpu"
+  Parameters.RestoreBuildProjects: "**/*.csproj"
+  Parameters.TestProjects: "**/*[Tt]ests/*.csproj"
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-node@v3
+        with:
+          version: 10.16.3
+
+      - run: 'npm install'
+        #          workingDir: TailwindTraders.Website/Source/Tailwind.Traders.Web/ClientApp
+         
+      - run: dotnet restore
+        #projects: '$(Parameters.RestoreBuildProjects)'
+
+      - run: dotnet build
+        #  projects: '$(Parameters.RestoreBuildProjects)'
+        #  arguments: '--configuration $(BuildConfiguration)'
