@@ -8,8 +8,11 @@ env:
   Parameters.TestProjects: "**/*[Tt]ests/*.csproj"
 
 jobs:
-  build-ubuntu:
-    runs-on: ubuntu-latest
+  build:
+    strategy:
+      matrix:
+        - runner: [ubuntu, windows, macos]
+    runs-on: ${{ matrix.runner }}-latest
     steps:
       - name: Collect Workflow Telemetry
         uses: runforesight/workflow-telemetry-action@v1
@@ -30,26 +33,3 @@ jobs:
 
       - name: dotnet build
         run: dotnet build TailwindTraders.Website/Source/Tailwind.Traders.Web.sln
-
-  build-windows:
-    runs-on: windows-latest
-    steps:
-      - name: Collect Workflow Telemetry
-        uses: runforesight/workflow-telemetry-action@v1
-      
-      - name: Clone repo
-        uses: actions/checkout@v3
-      
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 10.16.3
-
-      - name: npm install
-        run: npm install .\TailwindTraders.Website\Source\Tailwind.Traders.Web\ClientApp          
-         
-      - name: dotnet restore
-        run: dotnet restore .\TailwindTraders.Website\Source\Tailwind.Traders.Web.sln
-
-      - name: dotnet build
-        run: dotnet build .\TailwindTraders.Website\Source\Tailwind.Traders.Web.sln
