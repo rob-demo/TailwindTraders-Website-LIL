@@ -14,9 +14,13 @@ jobs:
       
       - uses: actions/setup-node@v3
         with:
-          version: 10.16.3
+          node-version: 10.16.3
 
-      - run: 'npm install'
+      - run: |
+          echo $PWD
+          ls -l
+          cd TailwindTraders.Website/Source/Tailwind.Traders.Web/ClientApps
+          npm install
         #          workingDir: TailwindTraders.Website/Source/Tailwind.Traders.Web/ClientApp
          
       - run: dotnet restore
